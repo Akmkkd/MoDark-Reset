@@ -1,4 +1,3 @@
-
 name: Build APK
 
 on:
@@ -18,8 +17,17 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      # خطوة جديدة: نفحص الملفات الموجودة عشان نشوف الـ gradlew موجود ولا لأ
+      - name: List files to debug
+        run: ls -la
+
+      # خطوة جديدة: نعطي صلاحيات التشغيل
       - name: Make gradlew executable
         run: chmod +x gradlew
+
+      # خطوة جديدة: نشغل أمر فحص سريع عشان يطلع لنا الخطأ الحقيقي في الشاشة
+      - name: Check Gradle tasks
+        run: ./gradlew tasks
 
       - name: Build Release APK
         run: ./gradlew assembleRelease
